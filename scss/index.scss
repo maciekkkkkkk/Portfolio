@@ -1,0 +1,38 @@
+.introduction {
+    width: 100%;
+    height: 97vh;
+
+    display: grid;
+
+    grid-template-rows: 1fr 0.1fr;
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .jumper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
+
+.title {
+    margin: 0;
+    font-size: 5em;
+    font-weight: 500;
+}
+
+.sub-title {
+    margin: 0;
+    font-size: 2em;
+    font-weight: 300;
+}
+
+.content {
+    height: 100vh;
+}
