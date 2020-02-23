@@ -7,12 +7,18 @@ jumperDiv.addEventListener('click', () => {
     });
 });
 
+const isMobile = () => {
+    return (window.innerWidth <= 800);
+}
+
 const projects = document.querySelectorAll('.project');
 const holders = document.querySelectorAll('.project-holder');
 
 for (let i = 0; i < projects.length; i++) {
     const project = projects[i];
     const holder = holders[i];
+
+    if (isMobile()) break;
 
     holder.addEventListener("mousemove", (event) => {
         const rect = project.getBoundingClientRect();
