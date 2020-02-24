@@ -3,6 +3,7 @@ html, body {
     padding: 0;
 
     overflow-x: hidden;
+    font-family: 'Roboto';
 }
 
 @keyframes jump {
@@ -50,15 +51,12 @@ html, body {
         justify-content: flex-end;
         align-items: center;
 
-        margin-bottom: 12px;
-
-        animation: jump 5s infinite;
-
         i {
             content: '\f0a8';
             font-family: 'FontAwesome';
             transition: .3s ease-in-out;
             font-size: 30px;
+            animation: jump 5s infinite;
         }
     }
 
@@ -123,9 +121,17 @@ h3 {
         height: 300px;
         padding: 32px;
 
-        background-color: whitesmoke;
+        background: url('../assets/farba.svg') fixed no-repeat center;
+        background-size: cover;
         box-shadow: 2px 2px 50px rgba(0, 0, 0, 0.2);
         border-radius: 8px;
+
+        color: white;
+        text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
         
         perspective: 100px;
 
@@ -134,7 +140,7 @@ h3 {
         }
     
         &--description {
-    
+            margin-top: 16px;
         }
     }
 
