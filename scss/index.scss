@@ -1,76 +1,12 @@
+@import './introduction.scss';
+@import './content.scss';
+
 html, body {
     margin: 0;
     padding: 0;
 
     overflow-x: hidden;
     font-family: 'Roboto';
-}
-
-@keyframes jump {
-    0% { 
-        transform: translateY(-12px);
-    } 
-     
-    50% { 
-        transform: translateY(-50px);
-    }
-    
-    100% {
-        transform: translateY(-12px);
-    }
-}
-
-.introduction {
-    width: 100vw;
-    height: 100vh;
-
-    display: grid;
-    grid-template-rows: 1fr 0.1fr;
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-    background: linear-gradient(
-        rgba(0, 0, 0, 0.7), 
-        rgba(0, 0, 0, 0.7)
-    ), url('https://miro.medium.com/max/6144/1*g7vToxOAkz-rfjtpHwgApg.jpeg') center no-repeat fixed;
-
-    color: white;
-
-    .header {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .jumper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
-
-        i {
-            content: '\f0a8';
-            font-family: 'FontAwesome';
-            transition: .3s ease-in-out;
-            font-size: 30px;
-            animation: jump 5s infinite;
-        }
-    }
-
-    @media only screen and (max-width: 600px) {
-        .header {
-            .title {
-                text-align: center;
-            }
-        }
-
-        h1 {
-            font-size: 2em;
-        }
-    }
 }
 
 h1 {
@@ -91,98 +27,16 @@ h3 {
     font-weight: 300;
 }
 
-.content {
-    background-color: rgb(220, 220, 220);
-    display: grid;
-
-    .title {
-        display: flex;
-        justify-content: center;
-    }
-}
-
-.projects {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr;
-    grid-row-gap: 24px;
-    padding: 20%;
-    padding-top: 5%;
-
-    .title {
-        margin-bottom: 10%;
-        text-align: center;
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 2em;
     }
 
-    .project {
-        max-width: 300px;
-        width: 300px;
-        max-height: 300px;
-        height: 300px;
-        padding: 32px;
-
-        background: url('../assets/farba.svg') fixed no-repeat bottom;
-        background-size: cover;
-        box-shadow: 2px 2px 50px rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-
-        color: white;
-        text-shadow:
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;
-        
-        perspective: 100px;
-
-        &--title {
-            text-align: center;
-        }
-    
-        &--description {
-            margin-top: 16px;
-        }
+    h2 {
+        font-size: 1.5em;
     }
 
-    .project-holder {    
-        perspective: 500px;
-        width: 300px;
-        max-width: 300px;
-     
-        &:nth-child(even) {
-            margin-left: auto;
-        }
-    }
-
-    @media only screen and (max-width: 600px) {
-        .title {
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 2em;
-        }
-
-        grid-row-gap: 24px;
-        padding: 4%;
-
-        .project-holder {    
-            perspective: 500px;
-            width: 100%;
-            max-width: 100%;
-            margin: 0;
-
-            display: flex;
-            justify-content: center;
-
-            &:nth-child(even) {
-                margin-left: 0;
-            }
-        }
-
-        .project {
-            width: 250px;
-            max-width: 250px;
-        }
+    h3 {
+        font-size: 1.2em;
     }
 }

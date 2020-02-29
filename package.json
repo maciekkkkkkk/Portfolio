@@ -14,5 +14,10 @@
     "parcel-bundler": "^1.12.4",
     "sass": "^1.25.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "aos": "^2.3.4"
+  },
+  "browserslist": [
+    "last 1 Chrome versions"
+  ]
 }

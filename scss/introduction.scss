@@ -1,0 +1,80 @@
+@keyframes jump {
+    0% { 
+        transform: translateY(-12px);
+    } 
+     
+    50% { 
+        transform: translateY(-50px);
+    }
+    
+    100% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.introduction {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    grid-template-rows: 1fr 0.1fr;
+
+    color: white;
+
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-attachment: fixed;
+    // background: linear-gradient(
+    //     rgba(0, 0, 0, 0.7), 
+    //     rgba(0, 0, 0, 0.7)
+    // ), url('https://miro.medium.com/max/6144/1*g7vToxOAkz-rfjtpHwgApg.jpeg') center no-repeat fixed;
+
+    background: linear-gradient(to bottom, #202020, #111119);
+
+    animation: fade-in 1s;
+
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100vw;
+        height: 100vh;    
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .title {
+            @media only screen and (max-width: 600px) {
+                text-align: center;
+            }
+        }
+    }
+
+    .jumper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+
+        content: '\f0a8';
+        font-family: 'FontAwesome';
+        transition: .3s ease-in-out;
+        font-size: 30px;
+        animation: jump 5s infinite;
+    }
+}
