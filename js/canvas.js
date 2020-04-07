@@ -6,7 +6,7 @@ const RAIN_DROP_SPEED = 3;
 class Raindrop {
     constructor() {
         this.width = 0;
-        this.height = 10;
+        this.height = random(3, 10);
 
         this.x = random(10, canvas.width - 10);
         this.y = -this.height - random(10, canvas.height + 400);
@@ -48,6 +48,7 @@ const update = () => {
 
             raindrop.y = -raindrop.height - random(10, canvas.height + 400);
             raindrop.x = random(10, canvas.width - 10);
+            raindrop.height = random(3, 10);
         }
     }
 
