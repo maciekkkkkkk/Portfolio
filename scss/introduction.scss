@@ -37,14 +37,14 @@
 
     color: white;
 
-    background: linear-gradient(to bottom, #202020, #111119);
-
     animation: fade-in 1s;
 
     .background {
         position: absolute;
         top: 0;
         left: 0;
+
+        background: linear-gradient(to bottom, #202020, #111119);
 
         z-index: -1;
 
