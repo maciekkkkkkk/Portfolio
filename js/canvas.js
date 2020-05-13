@@ -1,63 +1,87 @@
+const { clientWidth, clientHeight } = document.documentElement;
 const canvas = document.querySelector('.background');
 const context = canvas.getContext('2d');
 
-const RAIN_DROP_SPEED = 3;
+const RAIN_DROP_SPEED = 10;
 
 class Raindrop {
     constructor() {
         this.width = 0;
-        this.height = random(3, 10);
+        this.height = random(10, 30);
 
         this.x = random(10, canvas.width - 10);
         this.y = -this.height - random(10, canvas.height + 400);
     }
 }
 
-const random = (min, max) => {
-    return Math.floor(Math.random() * (1 + max - min)) + min;
+class Splash {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 0.1;
+    }
 }
 
 const raindrops = [];
+const splashes = [];
 
 const setup = () => {
+    resize();
+
     for (let i = 0; i < 100; i++) {
         raindrops.push(new Raindrop());
     }
-}
-
-const drawSplash = async (raindrop) => {
-    for(let i = 0; i < 5; i++) {
-        context.arc(raindrop.x, raindrop.y, 30, 0, Math.PI);
-        context.fillStyle = "rgba(255,255,255,0.1)";
-        context.fill();
-    }
-}
-
-const update = () => {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.beginPath();
-
-    for (const raindrop of raindrops) {
-        context.moveTo(raindrop.x, raindrop.y);
-        context.lineTo(raindrop.x + raindrop.width, raindrop.y + raindrop.height);
-
-        raindrop.y += RAIN_DROP_SPEED;
-
-        if (raindrop.y > canvas.height) {
-            //drawSplash(raindrop);
-
-            raindrop.y = -raindrop.height - random(10, canvas.height + 400);
-            raindrop.x = random(10, canvas.width - 10);
-            raindrop.height = random(3, 10);
-        }
-    }
-
-    context.strokeStyle = 'rgba(255,255,255,0.1)';
-    context.stroke();
 
     window.requestAnimationFrame(update);
 }
 
-setup();
+const resize = () => {
+    canvas.width = clientWidth;
+    canvas.height = clientHeight;
+}
 
-window.requestAnimationFrame(update);
+const update = () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const raindrop of raindrops) {
+        context.beginPath();
+        context.moveTo(raindrop.x, raindrop.y);
+        context.lineTo(raindrop.x + raindrop.width, raindrop.y + raindrop.height);
+        context.stroke();
+
+        raindrop.y += RAIN_DROP_SPEED;
+
+        const rand = random(canvas.height - 200, canvas.height);
+        if (raindrop.y > rand) {
+            splashes.push(new Splash(raindrop.x, raindrop.y));
+
+            raindrop.y = -raindrop.height - random(10, canvas.height + 400);
+            raindrop.x = random(10, canvas.width - 10);
+            raindrop.height = random(10, 30);
+        }
+    }
+
+    for (const splash of splashes) {
+        context.beginPath();
+        const alpha = 1 - splash.radius / 10;
+
+        context.strokeStyle = `rgba(255,255,255,${alpha})`;
+        if (alpha < 0.1) {
+            splashes.splice(splashes.indexOf(splash), 1);
+        }
+        context.ellipse(splash.x, splash.y, splash.radius, 1.5, 0, 0, Math.PI);
+        context.stroke();
+        splash.radius += 0.2;
+    }
+
+    context.strokeStyle = 'rgba(255,255,255,0.1)';
+
+    window.requestAnimationFrame(update);
+}
+
+const random = (min, max) => {
+    return Math.floor(Math.random() * (1 + max - min)) + min;
+}
+
+window.addEventListener('load', setup);
+window.addEventListener('resize', resize);

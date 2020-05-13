@@ -1,37 +1,85 @@
-// const jumperDiv = document.querySelector('.jumper');
-// const contentDiv = document.querySelector('.content');
+const generateCheckpoints = () => {
+    const timeline = document.querySelector('.timeline');
+    const sections = document.querySelectorAll('section');
 
-// jumperDiv.addEventListener('click', () => {
-//     contentDiv.scrollIntoView({
-//         behavior: 'smooth'
-//     });
-// });
+    for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
 
-// const isMobile = () => {
-//     return (window.innerWidth <= 800);
-// }
+        const checkpointWrapper = document.createElement('div');
+        checkpointWrapper.classList.add('checkpoint-wrapper');
+        checkpointWrapper.style.marginTop = `${section.offsetTop - (sections[i-1] ? sections[i-1].offsetTop : 0) - 15}px`;
 
-// const projects = document.querySelectorAll('.project');
-// const holders = document.querySelectorAll('.project-holder');
+        const checkpoint = document.createElement('li');
+        checkpoint.classList.add('checkpoint');
 
-// for (let i = 0; i < projects.length; i++) {
-//     const project = projects[i];
-//     const holder = holders[i];
+        const card = document.createElement('div');
+        card.classList.add('card');
 
-//     if (isMobile()) break;
+        const title = document.createElement('div');
+        title.classList.add('title');
+        title.innerText = section.dataset['title'];
 
-//     holder.addEventListener("mousemove", (event) => {
-//         const rect = project.getBoundingClientRect();
-//         const x = event.clientX - rect.left;
-//         const y = event.clientY - rect.top;
+        if (i !== 0) {
+            const jumper = document.createElement('div');
+            // Calculate halfway offset between sections
+            // I have no idea how it works but it works
+            jumper.style.top = `${section.offsetTop - (sections[i-1] ? sections[i-1].offsetTop : 0) - 15 - (section.offsetTop - sections[i - 1].offsetTop) / 2}px`;
+            jumper.classList.add('jumper', 'fa', 'fa-chevron-down');
 
-//         const yRotation = (x - project.clientWidth / 2) / 75;
-//         const xRotation = -(y - project.clientHeight / 2) / 75;
+            jumper.addEventListener('click', () => {
+                window.scroll({
+                    top: section.offsetTop,
+                    behavior: 'smooth'
+                })
+            })
 
-//         project.style = `transform: rotateY(${yRotation}deg) rotateX(${xRotation}deg)`;
-//     });
+            timeline.appendChild(jumper);
+        }
 
-//     holder.addEventListener("mouseleave", () => {
-//         project.style = `transition: transform 0.5s; transform: rotate(0)`;
-//     });
-// }
+        checkpointWrapper.appendChild(checkpoint);
+        card.appendChild(title);
+        checkpointWrapper.appendChild(card);
+        timeline.appendChild(checkpointWrapper);
+    }
+}
+
+const updateCheckpointsCards = () => {
+    const checkpoints = document.querySelectorAll('.checkpoint-wrapper');
+
+    for (const checkpoint of checkpoints) {
+        if (isElementInViewport(checkpoint)) {
+            checkpoint.classList.add('visible');
+        } else {
+            checkpoint.classList.remove('visible');
+        }
+    }
+}
+
+window.addEventListener('load', () => {
+    generateCheckpoints();
+    updateCheckpointsCards();
+});
+
+window.addEventListener('scroll', updateCheckpointsCards);
+
+// https://stackoverflow.com/a/125106
+const isElementInViewport = (el) => {
+    let top = el.offsetTop;
+    let left = el.offsetLeft;
+    const width = el.offsetWidth;
+    const height = el.offsetHeight;
+
+    while (el.offsetParent) {
+        el = el.offsetParent;
+        top += el.offsetTop;
+        left += el.offsetLeft;
+    }
+
+    return (
+        top < (window.pageYOffset + window.innerHeight) &&
+        left < (window.pageXOffset + window.innerWidth) &&
+        (top + height) > window.pageYOffset &&
+        (left + width) > window.pageXOffset
+    );
+}
+
