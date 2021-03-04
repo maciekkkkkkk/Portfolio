@@ -1,164 +1,39 @@
-@keyframes jump {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-16px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulsate {
-    0% {
-        -webkit-transform: scale(0.1, 0.1);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: scale(1.2, 1.2);
-        opacity: 0;
-    }
-}
-
 .content {
-    width: 100vw;
+    display: grid;
     overflow: hidden;
 
-    display: grid;
+    width: 100vw;
+
     background: #111119;
 
     grid-template:
-        "a b" auto
-        "a c" auto
-        "a d" auto / 0.2fr 1fr;
+        "timeline introduction" auto
+        "timeline about" auto
+        "timeline projects" auto / 0.2fr 1fr;
 
-    section {
-        height: 100vh;
-        width: 100%;
-    }
-
-    .jumper {
-        position: relative;
-
-        width: 30px;
-        height: 30px;
-        left: -11px;
-
-        content: "\f0a8";
-        font-family: "FontAwesome";
-        transition: 0.3s ease-in-out;
-        font-size: 30px;
-        animation: jump 5s infinite;
-        color: white;
-    }
-
-    .timeline {
-        width: 6px;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        margin-top: 128px;
-        margin-left: 128px;
-        background: rgb(80, 80, 80);
-        grid-area: a;
-
-        .checkpoint-wrapper {
-            width: 160px;
-            height: 30px;
-            margin-top: -15px;
-            margin-left: -25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .checkpoint {
-                position: relative;
-                left: 13px;
-                content: " ";
-                display: block;
-                width: 12px;
-                height: 12px;
-                background: #fff;
-                border-radius: 10px;
-                z-index: 10;
-
-                &:before {
-                    content: "";
-                    position: absolute;
-                    border: 3px solid #999;
-                    border-radius: 30px;
-                    height: 18px;
-                    width: 18px;
-                    margin-left: -50%;
-                    margin-top: -50%;
-                    animation: pulsate 1s ease-out;
-                    animation-iteration-count: infinite;
-                    opacity: 0;
-                }
-            }
-
-            .card {
-                width: 100px;
-                height: 30px;
-                margin-left: 30px;
-                background: rgb(248, 248, 248);
-                border-radius: 5px;
-                opacity: 0;
-                transition: ease-in-out opacity 0.3s;
-
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .card::before {
-                content: "";
-                position: absolute;
-                right: 100%;
-                top: 50%;
-                margin-top: -10px;
-                border: solid transparent;
-                border-left-color: rgb(248, 248, 248);
-                border-width: 10px;
-                display: inline-block;
-                transform: rotate(180deg);
-            }
-
-            &.visible {
-                .card {
-                    opacity: 1;
-                }
-            }
+        section {
+            height: 100vh;
+            width: 100%;
         }
-
-        @media only screen and (max-width: 1124px) {
-            visibility: hidden;
-            margin: 0;
-        }
-    }
 
     .introduction {
-        grid-area: b;
+        grid-area: introduction;
     }
 
     .about {
-        grid-area: c;
+        grid-area: about;
     }
 
     .projects {
-        grid-area: d;
+        grid-area: projects;
     }
 
     @media only screen and (max-width: 1124px) {
-        grid-template: 
-            "b" auto
-            "c" auto
-            "d" auto / 1fr;;
+        grid-template:
+        "introduction" auto
+        "about" auto
+        "projects" auto / 1fr;
+
+        // display: flex;
     }
 }

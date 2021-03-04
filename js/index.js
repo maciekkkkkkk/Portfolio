@@ -6,17 +6,17 @@ const generateCheckpoints = () => {
         const section = sections[i];
 
         const checkpointWrapper = document.createElement('div');
-        checkpointWrapper.classList.add('checkpoint-wrapper');
+        checkpointWrapper.classList.add('checkpoint__wrapper');
         checkpointWrapper.style.marginTop = `${section.offsetTop - (sections[i-1] ? sections[i-1].offsetTop : 0) - 15}px`;
 
         const checkpoint = document.createElement('li');
-        checkpoint.classList.add('checkpoint');
+        checkpoint.classList.add('checkpoint__wrapper__point');
 
         const card = document.createElement('div');
-        card.classList.add('card');
+        card.classList.add('checkpoint__wrapper__card');
 
         const title = document.createElement('div');
-        title.classList.add('title');
+        title.classList.add('checkpoint__wrapper__card__title');
         title.innerText = section.dataset['title'];
 
         if (i !== 0) {
@@ -44,13 +44,15 @@ const generateCheckpoints = () => {
 }
 
 const updateCheckpointsCards = () => {
-    const checkpoints = document.querySelectorAll('.checkpoint-wrapper');
+    const checkpoints = document.querySelectorAll('.checkpoint__wrapper');
 
     for (const checkpoint of checkpoints) {
+        const card = checkpoint.querySelector('.checkpoint__wrapper__card');
+
         if (isElementInViewport(checkpoint)) {
-            checkpoint.classList.add('visible');
+            card.classList.add('checkpoint__wrapper__card--visible');
         } else {
-            checkpoint.classList.remove('visible');
+            card.classList.remove('checkpoint__wrapper__card--visible');
         }
     }
 }
@@ -62,7 +64,7 @@ window.addEventListener('load', () => {
 
 window.addEventListener('scroll', updateCheckpointsCards);
 
-// https://stackoverflow.com/a/125106
+/** https://stackoverflow.com/a/125106 */
 const isElementInViewport = (el) => {
     let top = el.offsetTop;
     let left = el.offsetLeft;
