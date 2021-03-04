@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "1.0.0",
   "scripts": {
-    "build": "parcel build index.html"
+    "build": "npx -p parcel-bundler parcel build index.html"
   },
   "repository": {
     "type": "git",
