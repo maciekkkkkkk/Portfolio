@@ -12,7 +12,7 @@ class Raindrop {
         this.width = 0;
         this.height = random(10, 30);
 
-        this.x = random(10, canvas.width - 10);
+        this.x = random(0, canvas.width);
         this.y = -this.height - random(10, canvas.height + 400);
     }
 }
@@ -35,9 +35,18 @@ const setup = () => {
     window.requestAnimationFrame(update);
 }
 
-const resize = () => {
-    canvas.width = clientWidth;
-    canvas.height = clientHeight;
+const update = () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const raindrop of raindrops) {
+        drawRaindrop(raindrop);
+    }
+
+    for (const splash of splashes) {
+        drawSplash(splash);
+    }
+
+    window.requestAnimationFrame(update);
 }
 
 const drawSplash = (splash) => {
@@ -72,18 +81,9 @@ const drawRaindrop = (raindrop) => {
     }
 }
 
-const update = () => {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (const raindrop of raindrops) {
-        drawRaindrop(raindrop);
-    }
-
-    for (const splash of splashes) {
-        drawSplash(splash);
-    }
-
-    window.requestAnimationFrame(update);
+const resize = () => {
+    canvas.width = clientWidth;
+    canvas.height = clientHeight;
 }
 
 const random = (min, max) => {
